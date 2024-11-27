@@ -65,5 +65,9 @@ public class Setup {
 	public static WebDriver getDriver() {
 		return driver;
 	}
+	
+	public static Logger getLogger() {
+		return LOGGER;
+	}
 
 }
