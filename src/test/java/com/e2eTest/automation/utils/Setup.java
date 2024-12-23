@@ -3,7 +3,6 @@ package com.e2eTest.automation.utils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.Platform;
-import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -19,7 +18,6 @@ public class Setup {
 	private static WebDriver driver;
 	private static final Logger LOGGER = (Logger) LogManager.getLogger(Setup.class.getName());
 
-	
 	/**
 	 * This method is used to open browser. This method is called before the
 	 * invocation of each test method in the given class. In this method we need to
@@ -31,7 +29,7 @@ public class Setup {
 	@Before
 	public void setWebDriver(Scenario scenario) {
 
-		LOGGER.info("scenario: "+ scenario.getName() + "- started");
+		LOGGER.info("scenario: " + scenario.getName() + "- started");
 		String browser = System.getProperty("browser");
 		if (browser == null) {
 			browser = "chrome";
@@ -40,8 +38,8 @@ public class Setup {
 		switch (browser) {
 		case "chrome":
 			ChromeOptions chromeOptions = new ChromeOptions();
-			chromeOptions.addArguments("['start-maximized']");
-			chromeOptions.addArguments("-disable-search-engine-choice-screen");
+			chromeOptions.addArguments("start-maximized");
+			chromeOptions.addArguments("--disable-search-engine-choice-screen");
 			driver = new ChromeDriver(chromeOptions);
 			break;
 
@@ -65,7 +63,7 @@ public class Setup {
 	public static WebDriver getDriver() {
 		return driver;
 	}
-	
+
 	public static Logger getLogger() {
 		return LOGGER;
 	}
