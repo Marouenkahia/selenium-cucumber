@@ -10,13 +10,20 @@ pool:
   vmImage: 'windows-latest'
 
 steps:
+# 1. Build avec Maven et exécution des tests
 - task: Maven@4
   inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '21.0'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
+    mavenPomFile: 'pom.xml'  # Fichier POM Maven
+    mavenOptions: '-Xmx3072m'  # Option de mémoire pour Maven
+    javaHomeOption: 'JDKVersion'  # Spécifier la version du JDK
+    jdkVersionOption: '21.0'  # Version de Java (JDK 21)
+    jdkArchitectureOption: 'x64'  # Architecture 64 bits
+    goals: 'clean package'  # Nettoyer le projet et construire
+
+# 2. Publier les résultats de tests JUnit
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'  # Format de résultats JUnit
+    testResultsFiles: '**/target/surefire-reports/TEST-*.xml'  # Chemin vers les fichiers de résultats
+    failTaskOnFailedTests: true  # Marquer comme échoué si des tests échouent
+
